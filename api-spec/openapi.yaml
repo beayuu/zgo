@@ -1,0 +1,1127 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: ZamGo Tourism Booking Platform API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: attractions
+    description: Attraction operations
+  - name: packages
+    description: Tour package operations
+  - name: transportation
+    description: Transportation service operations
+  - name: bookings
+    description: Booking operations
+  - name: reviews
+    description: Review operations
+  - name: users
+    description: User operations
+  - name: merchants
+    description: Merchant operations
+  - name: admin
+    description: Admin operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /attractions:
+    get:
+      operationId: listAttractions
+      tags: [attractions]
+      summary: List all attractions
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+        - name: minRating
+          in: query
+          schema:
+            type: number
+        - name: location
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of attractions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attraction"
+    post:
+      operationId: createAttraction
+      tags: [attractions]
+      summary: Create an attraction (merchant)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttractionInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Attraction"
+
+  /attractions/featured:
+    get:
+      operationId: listFeaturedAttractions
+      tags: [attractions]
+      summary: List featured/popular attractions
+      responses:
+        "200":
+          description: Featured attractions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attraction"
+
+  /attractions/categories:
+    get:
+      operationId: listAttractionCategories
+      tags: [attractions]
+      summary: List all attraction categories with counts
+      responses:
+        "200":
+          description: Categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /attractions/{id}:
+    get:
+      operationId: getAttraction
+      tags: [attractions]
+      summary: Get a single attraction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Attraction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Attraction"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateAttraction
+      tags: [attractions]
+      summary: Update an attraction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttractionUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Attraction"
+    delete:
+      operationId: deleteAttraction
+      tags: [attractions]
+      summary: Delete an attraction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /packages:
+    get:
+      operationId: listPackages
+      tags: [packages]
+      summary: List tour packages
+      responses:
+        "200":
+          description: Packages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TourPackage"
+    post:
+      operationId: createPackage
+      tags: [packages]
+      summary: Create a tour package
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PackageInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TourPackage"
+
+  /packages/{id}:
+    get:
+      operationId: getPackage
+      tags: [packages]
+      summary: Get a single tour package
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Package
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TourPackage"
+
+  /transportation:
+    get:
+      operationId: listTransportation
+      tags: [transportation]
+      summary: List transportation services
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Transportation services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transportation"
+    post:
+      operationId: createTransportation
+      tags: [transportation]
+      summary: Create a transportation service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransportationInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transportation"
+
+  /transportation/{id}:
+    get:
+      operationId: getTransportation
+      tags: [transportation]
+      summary: Get a transportation service
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Transportation service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transportation"
+
+  /bookings:
+    get:
+      operationId: listBookings
+      tags: [bookings]
+      summary: List user bookings
+      responses:
+        "200":
+          description: Bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+    post:
+      operationId: createBooking
+      tags: [bookings]
+      summary: Create a booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingInput"
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+
+  /bookings/{id}:
+    get:
+      operationId: getBooking
+      tags: [bookings]
+      summary: Get a booking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Booking
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+
+  /bookings/{id}/cancel:
+    post:
+      operationId: cancelBooking
+      tags: [bookings]
+      summary: Cancel a booking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Cancelled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+
+  /reviews:
+    get:
+      operationId: listReviews
+      tags: [reviews]
+      summary: List reviews for an attraction or package
+      parameters:
+        - name: attractionId
+          in: query
+          schema:
+            type: integer
+        - name: packageId
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+    post:
+      operationId: createReview
+      tags: [reviews]
+      summary: Create a review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+
+  /users/me:
+    get:
+      operationId: getCurrentUser
+      tags: [users]
+      summary: Get current user profile
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/me/dashboard:
+    get:
+      operationId: getUserDashboard
+      tags: [users]
+      summary: Get user dashboard stats
+      responses:
+        "200":
+          description: Dashboard data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDashboard"
+
+  /users/me/favorites:
+    get:
+      operationId: listFavorites
+      tags: [users]
+      summary: List user favorites
+      responses:
+        "200":
+          description: Favorites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attraction"
+
+  /users/me/favorites/{attractionId}:
+    post:
+      operationId: addFavorite
+      tags: [users]
+      summary: Add to favorites
+      parameters:
+        - name: attractionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessMessage"
+    delete:
+      operationId: removeFavorite
+      tags: [users]
+      summary: Remove from favorites
+      parameters:
+        - name: attractionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Removed
+
+  /merchants/dashboard:
+    get:
+      operationId: getMerchantDashboard
+      tags: [merchants]
+      summary: Get merchant dashboard stats
+      responses:
+        "200":
+          description: Merchant dashboard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MerchantDashboard"
+
+  /merchants/attractions:
+    get:
+      operationId: listMerchantAttractions
+      tags: [merchants]
+      summary: List merchant's own attractions
+      responses:
+        "200":
+          description: Attractions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attraction"
+
+  /merchants/bookings:
+    get:
+      operationId: listMerchantBookings
+      tags: [merchants]
+      summary: List bookings for merchant's attractions
+      responses:
+        "200":
+          description: Bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+
+  /admin/stats:
+    get:
+      operationId: getAdminStats
+      tags: [admin]
+      summary: Get admin-level platform statistics
+      responses:
+        "200":
+          description: Admin stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+
+  /admin/users:
+    get:
+      operationId: listAdminUsers
+      tags: [admin]
+      summary: List all users (admin)
+      responses:
+        "200":
+          description: Users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /admin/bookings:
+    get:
+      operationId: listAdminBookings
+      tags: [admin]
+      summary: List all bookings (admin)
+      responses:
+        "200":
+          description: Bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Attraction:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: ["number", "null"]
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        duration:
+          type: string
+        imageUrl:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        inclusions:
+          type: array
+          items:
+            type: string
+        meetingPoint:
+          type: ["string", "null"]
+        schedule:
+          type: ["string", "null"]
+        isFeatured:
+          type: boolean
+        merchantId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - category
+        - location
+        - price
+        - rating
+        - reviewCount
+        - duration
+        - imageUrl
+        - images
+        - inclusions
+        - isFeatured
+        - createdAt
+
+    AttractionInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        duration:
+          type: string
+        imageUrl:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        inclusions:
+          type: array
+          items:
+            type: string
+        meetingPoint:
+          type: string
+        schedule:
+          type: string
+        isFeatured:
+          type: boolean
+      required:
+        - name
+        - description
+        - category
+        - location
+        - price
+        - duration
+        - imageUrl
+
+    AttractionUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        duration:
+          type: string
+        imageUrl:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        inclusions:
+          type: array
+          items:
+            type: string
+        meetingPoint:
+          type: string
+        schedule:
+          type: string
+        isFeatured:
+          type: boolean
+
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+        count:
+          type: integer
+        icon:
+          type: string
+      required:
+        - name
+        - count
+
+    TourPackage:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: ["number", "null"]
+        imageUrl:
+          type: string
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        duration:
+          type: string
+        inclusions:
+          type: array
+          items:
+            type: string
+        highlights:
+          type: array
+          items:
+            type: string
+        savingsPercent:
+          type: ["integer", "null"]
+        isFeatured:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - price
+        - imageUrl
+        - rating
+        - reviewCount
+        - duration
+        - inclusions
+        - highlights
+        - isFeatured
+        - createdAt
+
+    PackageInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        imageUrl:
+          type: string
+        duration:
+          type: string
+        inclusions:
+          type: array
+          items:
+            type: string
+        highlights:
+          type: array
+          items:
+            type: string
+        isFeatured:
+          type: boolean
+      required:
+        - name
+        - description
+        - price
+        - imageUrl
+        - duration
+        - inclusions
+        - highlights
+
+    Transportation:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        imageUrl:
+          type: string
+        capacity:
+          type: integer
+        features:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - type
+        - description
+        - price
+        - imageUrl
+        - capacity
+        - features
+        - createdAt
+
+    TransportationInput:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        imageUrl:
+          type: string
+        capacity:
+          type: integer
+        features:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - type
+        - description
+        - price
+        - imageUrl
+        - capacity
+        - features
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        bookingReference:
+          type: string
+        userId:
+          type: integer
+        attractionId:
+          type: ["integer", "null"]
+        packageId:
+          type: ["integer", "null"]
+        transportationId:
+          type: ["integer", "null"]
+        attractionName:
+          type: string
+        imageUrl:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        guestCount:
+          type: integer
+        totalAmount:
+          type: number
+        status:
+          type: string
+        paymentMethod:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - bookingReference
+        - userId
+        - attractionName
+        - imageUrl
+        - date
+        - time
+        - guestCount
+        - totalAmount
+        - status
+        - createdAt
+
+    BookingInput:
+      type: object
+      properties:
+        attractionId:
+          type: integer
+        packageId:
+          type: integer
+        transportationId:
+          type: integer
+        date:
+          type: string
+        time:
+          type: string
+        guestCount:
+          type: integer
+        paymentMethod:
+          type: string
+      required:
+        - date
+        - time
+        - guestCount
+        - paymentMethod
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        userName:
+          type: string
+        userAvatar:
+          type: ["string", "null"]
+        attractionId:
+          type: ["integer", "null"]
+        packageId:
+          type: ["integer", "null"]
+        rating:
+          type: integer
+        comment:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - userName
+        - rating
+        - comment
+        - createdAt
+
+    ReviewInput:
+      type: object
+      properties:
+        attractionId:
+          type: integer
+        packageId:
+          type: integer
+        rating:
+          type: integer
+        comment:
+          type: string
+      required:
+        - rating
+        - comment
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        avatarUrl:
+          type: ["string", "null"]
+        role:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - email
+        - role
+        - createdAt
+
+    UserDashboard:
+      type: object
+      properties:
+        totalBookings:
+          type: integer
+        upcomingTrips:
+          type: integer
+        completedTrips:
+          type: integer
+        totalSpent:
+          type: number
+        recentBookings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Booking"
+        upcomingBookings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Booking"
+        savedAttractions:
+          type: integer
+      required:
+        - totalBookings
+        - upcomingTrips
+        - completedTrips
+        - totalSpent
+        - recentBookings
+        - upcomingBookings
+        - savedAttractions
+
+    MerchantDashboard:
+      type: object
+      properties:
+        totalAttractions:
+          type: integer
+        totalBookings:
+          type: integer
+        totalRevenue:
+          type: number
+        pendingBookings:
+          type: integer
+        monthlyRevenue:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonthlyRevenue"
+        recentBookings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Booking"
+        topAttractions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Attraction"
+      required:
+        - totalAttractions
+        - totalBookings
+        - totalRevenue
+        - pendingBookings
+        - monthlyRevenue
+        - recentBookings
+        - topAttractions
+
+    MonthlyRevenue:
+      type: object
+      properties:
+        month:
+          type: string
+        revenue:
+          type: number
+        bookings:
+          type: integer
+      required:
+        - month
+        - revenue
+        - bookings
+
+    AdminStats:
+      type: object
+      properties:
+        totalUsers:
+          type: integer
+        totalMerchants:
+          type: integer
+        totalBookings:
+          type: integer
+        totalRevenue:
+          type: number
+        activeAttractions:
+          type: integer
+        pendingBookings:
+          type: integer
+        monthlyRevenue:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonthlyRevenue"
+        bookingsByStatus:
+          type: object
+          properties:
+            confirmed:
+              type: integer
+            pending:
+              type: integer
+            cancelled:
+              type: integer
+          required:
+            - confirmed
+            - pending
+            - cancelled
+      required:
+        - totalUsers
+        - totalMerchants
+        - totalBookings
+        - totalRevenue
+        - activeAttractions
+        - pendingBookings
+        - monthlyRevenue
+        - bookingsByStatus
+
+    SuccessMessage:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
