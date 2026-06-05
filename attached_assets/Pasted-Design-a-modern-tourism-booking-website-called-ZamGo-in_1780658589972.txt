@@ -1,0 +1,318 @@
+Design a modern tourism booking website called ZamGo, inspired by Klook, but focused exclusively on tourism experiences, attractions, transportation, and tour packages in Zamboanga City and nearby destinations.
+
+Brand Identity
+
+Company Name: ZamGo
+
+Tagline: Explore Zamboanga. Book Easy. Go Worry-Free.
+
+Color Palette:
+
+* Orange (#FF7A00) – Primary CTA
+* Golden Yellow (#FFC83D) – Promotions & highlights
+* Ocean Blue (#0066CC) – Trust & navigation
+* Tropical Green (#00A86B) – Nature & success states
+* White backgrounds
+* Light gray sections
+
+Style:
+
+* Modern travel marketplace
+* Similar to Klook, Airbnb, and Booking.com
+* Professional and investor-ready
+* Clean and highly visual
+* Large destination photography
+* Premium travel experience
+
+⸻
+
+Website Pages
+
+1. Homepage
+
+Large hero section with:
+
+* Search bar
+* Destination imagery of Zamboanga
+* CTA button: Explore Attractions
+
+Navigation:
+
+* Home
+* Attractions
+* Tours
+* Transportation
+* Packages
+* About
+* Contact
+* Login
+* Sign Up
+
+Homepage sections:
+
+Hero Banner
+
+Popular Attractions
+
+Featured Packages
+
+Transportation Services
+
+Why Choose ZamGo
+
+Customer Reviews
+
+Partner Attractions
+
+Newsletter Signup
+
+Footer
+
+⸻
+
+2. Attractions Listing Page
+
+Advanced search and filters
+
+Filters:
+
+* Category
+* Price
+* Duration
+* Rating
+* Location
+
+Grid layout similar to Klook
+
+Attraction cards include:
+
+* Image
+* Name
+* Rating
+* Price
+* Duration
+* Book Now button
+
+⸻
+
+3. Attraction Details Page
+
+Large image gallery
+
+Information sections:
+
+* Overview
+* Description
+* Inclusions
+* Schedule
+* Meeting Point
+* Reviews
+* FAQs
+
+Sticky booking panel on the right:
+
+* Date Picker
+* Time Selection
+* Guest Count
+* Transportation Add-on
+* Book Now button
+
+Similar layout to Klook experience pages.
+
+⸻
+
+4. Tour Packages Page
+
+Show bundled experiences:
+
+Examples:
+
+* Once Islas + Van Transfer
+* Santa Cruz Island + Lunch
+* Zamboanga City Tour Package
+
+Package cards:
+
+* Savings badge
+* Package inclusions
+* Reviews
+* Pricing
+
+⸻
+
+5. Transportation Page
+
+Services:
+
+* Airport Transfers
+* Van Rentals
+* Tourist Shuttles
+* Island Transfers
+
+Modern booking interface.
+
+⸻
+
+6. Checkout Page
+
+Professional checkout flow
+
+Left side:
+
+* Booking summary
+
+Right side:
+
+* Payment form
+
+Supported payment icons:
+
+* GCash
+* Maya
+* Visa
+* Mastercard
+* PayPal
+
+Order summary card
+
+⸻
+
+7. Booking Confirmation Page
+
+Success state
+
+Display:
+
+* Booking ID
+* QR Ticket
+* Booking Details
+* Download Ticket
+* Print Ticket
+
+⸻
+
+8. User Dashboard
+
+Sidebar Navigation:
+
+* Dashboard
+* My Bookings
+* Favorites
+* Reviews
+* Profile Settings
+
+Dashboard widgets:
+
+* Upcoming Trips
+* Recent Bookings
+* Saved Attractions
+
+⸻
+
+9. My Bookings Page
+
+Table design
+
+Columns:
+
+* Booking ID
+* Attraction
+* Date
+* Status
+* Ticket
+
+Actions:
+
+* View
+* Download
+* Cancel
+
+⸻
+
+10. Login Page
+
+Modern split-screen layout
+
+Left:
+
+* Zamboanga tourism image
+
+Right:
+
+* Login Form
+
+Options:
+
+* Google Login
+* Facebook Login
+* Email Login
+
+⸻
+
+11. Sign Up Page
+
+Professional registration form
+
+Fields:
+
+* Name
+* Email
+* Phone
+* Password
+
+Social signup options
+
+⸻
+
+12. Merchant Dashboard
+
+Sidebar layout
+
+Features:
+
+* Overview
+* Manage Attractions
+* Bookings
+* QR Validation
+* Analytics
+
+Charts and KPI cards.
+
+⸻
+
+13. Admin Dashboard
+
+Enterprise-style dashboard
+
+Statistics:
+
+* Total Users
+* Total Bookings
+* Revenue
+* Active Attractions
+
+Management panels:
+
+* Users
+* Merchants
+* Attractions
+* Payments
+
+⸻
+
+Design System
+
+Create:
+
+* Desktop-first responsive layouts
+* 12-column grid system
+* Reusable components
+* Buttons
+* Cards
+* Forms
+* Navigation bars
+* Tables
+* Modals
+* Booking widgets
+
+Design should feel like a professional tourism marketplace that could realistically compete with Klook for Zamboanga tourism.
